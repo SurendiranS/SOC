@@ -14,8 +14,8 @@ void loop() {
     Serial.println("Discharging Mode");
     if (Vb > Vmin) {
       DOD = DOD + Nd * difDOD;
-      SOC = SOH -  DOD
-    };
+      SOC = SOH -  DOD;
+    }
     else {
       SOH = DOD
     }
