@@ -1,0 +1,39 @@
+void setup() {
+  int Vmin   ; //minimum vale of discharged battery
+  int SOH = 100;
+  int Nd   ;
+  
+}
+
+void loop() {
+  int SOC;
+  int DOD = 100 - SOC;
+  int ib = current();
+  int vb = voltage();
+  if (ib < 0) {
+    Serial.println("Discharging Mode");
+    if (Vb > Vmin) {
+      DOD = DOD + Nd * difDOD;
+      SOC = SOH -  DOD
+    };
+    else {
+      SOH = DOD
+    }
+  }
+  else if (ib == 0) {
+    Serial.println("Soc =%d", SOC);
+    Serial.println("Soh =%d", SOH);
+  }
+  else (ib > 0) {
+    Serial.println("Charging");
+    if (SOC == 100) {
+      SOH = SOC;
+    }
+    else (SOC != 100) {
+      DOD = DOD + Nd*difDOD;
+      SOC = SOH  -  DOD;
+    }
+  }
+  Serial.println("Soc =%d", SOC);
+  Serial.println("Soh =%d", SOH);
+}
