@@ -1,19 +1,19 @@
 void setup() {
-  int Vmin   ; //minimum vale of discharged battery
+  int Vmin   ; //********Enter minimum vale of discharged battery
   int SOH = 100;
-  int Nd   ;
-  
+  int Nd   ;//*******
+
 }
 
 void loop() {
-  int SOC;
+  int SOC=  ;//******* Enter the initial soc
   int DOD = 100 - SOC;
   int ib = current();
   int vb = voltage();
   if (ib < 0) {
     Serial.println("Discharging Mode");
     if (Vb > Vmin) {
-      DOD = DOD + Nd * difDOD;
+      DOD = DOD + Nd * difDOD; // ******find dif dod
       SOC = SOH -  DOD;
     }
     else {
@@ -21,19 +21,44 @@ void loop() {
     }
   }
   else if (ib == 0) {
+    Serial.println("Open Circuit Mode");
     Serial.println("Soc =%d", SOC);
     Serial.println("Soh =%d", SOH);
   }
-  else (ib > 0) {
+  else {
     Serial.println("Charging");
     if (SOC == 100) {
       SOH = SOC;
     }
     else (SOC != 100) {
-      DOD = DOD + Nd*difDOD;
-      SOC = SOH  -  DOD;
+      DOD = DOD + Nd * difDOD;//*******find dif dod
+      SOC = SOH  -  DOD; 
     }
   }
   Serial.println("Soc =%d", SOC);
   Serial.println("Soh =%d", SOH);
+}
+
+int current () {
+
+  adcValue = analogRead(currentPin);
+  adcVoltage = (adcValue / 1024.0) * 5000;
+  currentValue = ((adcVoltage - offsetVoltage) / sensitivity);
+  if ( currentValue < 0.03)
+  {
+    currentValue = 0.0;
+  }
+}
+
+
+
+int voltage() {
+  analog_value = analogRead(A0);
+  temp = (analog_value * 5.0) / 1024.0;
+
+  voltage = temp * 7.2;
+  if (voltage < 0.1)
+  {
+    voltage = 0.0;
+  }
 }
